@@ -1,0 +1,18 @@
+ - enforce fk relations in db
+ - encapsulate db models correctly with appropriate object specific methods
+ - fix module setup so that we aren't appending directories to the path within the code
+ - add mypy for static typing
+ - use mypy for static typing
+ - TESTS >:/
+ - turn into monorepo?
+ - flatten out PitchForkReview dataclass - not sure meta object makes sense in context of review
+ - use a query builder for db queries
+ - modify sql queries to avoid if/else for insert/select on fields
+ - stick to one coding style (camelCase)
+ - modify pitchfork review to author review -> maybe have a type or table to say where the review is from e.g. pitchfork etc.
+ - change reviewed_at -> published_at?
+ - all db writes should return the written rows
+ - use batch statements for sql queries instead of for loops
+ - raise db errors to pipeline so item can be dropped and retried later
+ - hash content of review (or key fields) and store that in checkpoint table
+ - better abstraction for app and scheduler
