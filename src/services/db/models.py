@@ -94,7 +94,6 @@ class PitchForkReviewModel(__BaseDatabase):
         self.tags = item.meta['tag']
 
     def save(self) -> None:
-        self.log.error('ajkndanjsk')
         albumId = self._saveAlbum(self.album)
         genreIds = self._saveGenres(self.genres)
         self._saveAlbumGenreAssociation(albumId, genreIds)
