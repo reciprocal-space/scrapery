@@ -1,12 +1,12 @@
 import sys
-
 # TODO: fix appending to path variable
 sys.path.append('./')
-
+import os
 from src.services.db import db
 
 # TODO: fix hardcoded path
-DATABASE = './src/services/db/storage/music.db'
+BASE_PATH = './src/services/db/storage'
+DATABASE = 'music.db'
 
 class ImportData:
     def __init__(self, database, logger=print):
@@ -70,8 +70,11 @@ class ImportData:
         result = self.db.writeScript(query)
 
 if __name__ == '__main__':
+    if not os.path.exists(BASE_PATH):
+        os.makedirs(BASE_PATH)
+    
     db = db.__BaseDatabase()
-    db.connect(DATABASE)
+    db.connect(os.path.join(BASE_PATH, DATABASE))
     
     dataHandler = ImportData(db)
     dataHandler.initializeTable()
