@@ -44,3 +44,12 @@ redis-server
 ```
 celery --workdir src -A app worker -B -l DEBUG
 ```
+
+## Accessing the database
+
+The application relies on a sqlite database found at `src/services/db/storage/music.db`; it can be accessed with the following command from a terminal:
+```
+sqlite3 src/services/db/storage/music.db
+```
+Schema:
+
