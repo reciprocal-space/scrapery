@@ -53,3 +53,4 @@ sqlite3 src/services/db/storage/music.db
 ```
 Schema:
 
+![music](https://user-images.githubusercontent.com/19412227/224117571-6d1ea250-4a1f-47c8-a025-9a959b5da1f4.png)
