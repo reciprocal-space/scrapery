@@ -1,7 +1,7 @@
 import typing
 import strawberry
-from db.models.album import AlbumModel
-from db.models.artist import ArtistModel
+from services.db.models.album import AlbumModel
+from services.db.models.artist import ArtistModel
 from typing import Optional, Annotated
 from dataclasses import dataclass
 

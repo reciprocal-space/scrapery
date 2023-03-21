@@ -1,18 +1,14 @@
-import sys
-from services.scheduler.task import bootstrapScheduler
-from scrapy.crawler import CrawlerProcess
-from services.scraper.spiders.spider import PitchforkAlbumsSpider
-from celery import shared_task
-from scrapy.utils.project import get_project_settings
+from flask import Flask
+from strawberry.flask.views import GraphQLView
 
-app = bootstrapScheduler()
+from services.api.schema import schema
+ 
+app = Flask(__name__)
 
-@shared_task
-def crawl():
-    process = CrawlerProcess(get_project_settings())
-    process.crawl(PitchforkAlbumsSpider)
-    process.start(False)
+app.add_url_rule(
+    "/graphql",
+    view_func=GraphQLView.as_view("graphql_view", schema=schema),
+)
 
-@app.on_after_configure.connect
-def setupPeriodicCrawl(sender, **kwargs):
-    sender.add_periodic_task(10, crawl.s(), name='Crawl Pitchfork album reviews periodically')
+if __name__ == "__main__":
+    app.run()

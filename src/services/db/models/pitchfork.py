@@ -1,5 +1,5 @@
 from customtypes import PitchforkReview
-from db.db import __BaseDatabase
+from services.db.db import __BaseDatabase
 import logging
 import os
 

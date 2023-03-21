@@ -1,8 +1,6 @@
-import os, sys
-print(os.getcwd(), sys.path)
 from customtypes import Album, Artist, Review
-from db.db import __BaseDatabase
-from db.models.artist import Artist
+from services.db.db import __BaseDatabase
+from services.db.models.artist import Artist
 import logging
 import os
 

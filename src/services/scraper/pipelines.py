@@ -7,9 +7,8 @@
 from itemadapter import ItemAdapter
 from scrapy.exceptions import DropItem
 from scrapy.loader import ItemLoader
-from services.db.models import PitchForkReviewModel
+from services.db.models.pitchfork import PitchForkReviewModel
 import logging
-import os
 
 class ScraperPipeline:
     def __init__(self):
@@ -34,8 +33,10 @@ class ScraperPipeline:
             # TODO: add idempotency check to see if we've saved review before
 
             self.saveItem()
+
         except Exception as e:
-            self.log.error('Something went wrong in the pipeline: {e}')
+            self.log.error(f'Something went wrong in the pipeline: {e}')
 
     def saveItem(self):
         self.model.save()
+        self.log.info(f'Saved: {self.model.__dict__}')

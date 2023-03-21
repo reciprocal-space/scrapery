@@ -8,9 +8,7 @@ from scrapy.item import Item
 from scrapy.selector import Selector
 from itemadapter import ItemAdapter
 from scrapy.loader import ItemLoader
-from services.customtypes import PitchforkReview
-# from db import Database
-
+from customtypes import PitchforkReview
 
 class PitchforkAlbumsSpider(scrapy.Spider):
     name = 'pitchforkalbums'
