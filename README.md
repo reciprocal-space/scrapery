@@ -42,8 +42,15 @@ redis-server
 ```
 2. Run the Celery task-queue to start scraping
 ```
-celery --workdir src -A app worker -B -l DEBUG
+celery --workdir src -A crawler worker -B -l ERROR
 ```
+
+## Running the API
+
+Start the graphql server
+```python src/app.py```
+
+The graphql playground is available at `http://localhost:8080/graphql`
 
 ## Accessing the database
 
