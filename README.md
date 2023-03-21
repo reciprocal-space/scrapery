@@ -45,6 +45,8 @@ redis-server
 celery --workdir src -A crawler worker -B -l ERROR
 ```
 
+NB: This scraper does not respect robots.txt, and is configured to run once daily
+
 ## Running the API
 
 Start the graphql server
