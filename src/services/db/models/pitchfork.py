@@ -8,6 +8,7 @@ class PitchForkReviewModel(__BaseDatabase):
     DATABASE_NAME = './services/db/storage/music.db'
 
     def __init__(self):
+        # TODO: create standard interface for the read/write methods
         logger = logging.getLogger(__name__)
         super(PitchForkReviewModel, self).__init__(logger)
         self.connect(self.DATABASE_NAME)
@@ -94,7 +95,7 @@ class PitchForkReviewModel(__BaseDatabase):
         self.tags = item.meta['tag']
 
     def save(self) -> None:
-        # TODO: wrap these in a transaction - all should succeed or rollback to avoid data inconsistency
+        # TODO: this should be wrapped in a transaction and rolled back if any insert fails - we don't want inconsistent data/zombie rows
         albumId = self._saveAlbum(self.album)
         genreIds = self._saveGenres(self.genres)
         self._saveAlbumGenreAssociation(albumId, genreIds)
