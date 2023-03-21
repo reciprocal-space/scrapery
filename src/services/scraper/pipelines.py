@@ -20,17 +20,20 @@ class ScraperPipeline:
             self.model.load(item)
 
             if not self.model.album:
-                raise DropItem('Missing album in {item}')
+                raise DropItem(f'Missing album in {item}')
             if not self.model.genres:
-                raise DropItem('Missing genres in {item}')
+                raise DropItem(f'Missing genres in {item}')
             if not self.model.link:
-                raise DropItem('Missing link in {item}')
+                raise DropItem(f'Missing link in {item}')
             if not self.model.author:
-                raise DropItem('Missing author in {item}')
+                raise DropItem(f'Missing author in {item}')
             if not self.model.reviewedAt:
-                raise DropItem('Missing reviewed_at in {item}')
+                raise DropItem(f'Missing reviewed_at in {item}')
 
             # TODO: add idempotency check to see if we've saved review before
+            has_review = self.model.hasReview(self.model.link)
+            if has_review:
+                raise DropItem(f'Already saved this item')
 
             self.saveItem()
 

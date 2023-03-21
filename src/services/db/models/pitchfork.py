@@ -85,6 +85,11 @@ class PitchForkReviewModel(__BaseDatabase):
         query = """INSERT INTO pitchfork_review_pitchfork_author (pitchfork_review_id, pitchfork_author_id) VALUES (?, ?)"""
         self.write(query, (reviewId, authorId,))
     
+    def hasReview(self, link):
+        query = """SELECT * FROM pitchfork_review WHERE link = (?)""";
+        result = self.read(query, (link,))
+        return True if len(result) > 0 else False
+    
     def load(self, item: PitchforkReview) -> None:
         self.album = item.album
         self.artists = item.artists

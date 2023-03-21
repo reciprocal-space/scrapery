@@ -16,9 +16,9 @@ class ArtistModel(__BaseDatabase):
     def __rowFactory(self, cursor, row):
         print(row)
         return Artist(
-            albums=[Album(name=name, genres=row[7], review=Review(author=row[5], link=[3], reviewedAt=row[2], tag=row[4])) for name in row[6].split(',')],
+            albums=[Album(name=name, genres=row[7].split(','), review=Review(author=row[5], link=[3], reviewedAt=row[2], tag=row[4])) for name in row[6].split(',')],
             name=row[0],
-            genres=row[1],
+            genres=row[1].split(','),
         )
 
     def getByName(self, name):
