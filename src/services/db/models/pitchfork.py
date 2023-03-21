@@ -1,5 +1,5 @@
-from services.customtypes import PitchforkReview
-from services.db.db import __BaseDatabase
+from customtypes import PitchforkReview
+from db.db import __BaseDatabase
 import logging
 import os
 
@@ -9,7 +9,7 @@ class PitchForkReviewModel(__BaseDatabase):
 
     def __init__(self):
         logger = logging.getLogger(__name__)
-        super(__BaseDatabase, self).__init__(logger)
+        super(PitchForkReviewModel, self).__init__(logger)
         self.connect(self.DATABASE_NAME)
 
     def _saveAlbum(self, album) -> int :
@@ -94,6 +94,7 @@ class PitchForkReviewModel(__BaseDatabase):
         self.tags = item.meta['tag']
 
     def save(self) -> None:
+        # TODO: wrap these in a transaction - all should succeed or rollback to avoid data inconsistency
         albumId = self._saveAlbum(self.album)
         genreIds = self._saveGenres(self.genres)
         self._saveAlbumGenreAssociation(albumId, genreIds)
@@ -103,6 +104,6 @@ class PitchForkReviewModel(__BaseDatabase):
         self._saveArtistGenreAssociation(artistIds, genreIds)
 
         reviewAuthorId = self._saveReviewAuthor(self.author)
-        reviewId = self._savePitchforkReview(self.album, self.link, self.reviewedAt, self.tags)
+        reviewId = self._savePitchforkReview(albumId, self.link, self.reviewedAt, self.tags)
 
         self._saveReviewAuthorAssociation(reviewAuthorId, reviewId)

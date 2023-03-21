@@ -18,3 +18,23 @@ class PitchforkReview:
     TODO: flatten out meta object
     """
     meta: typing.Dict[str, str]
+
+@dataclass
+class Review:
+    author: str
+    link: str
+    reviewedAt: str
+    tag: str
+
+@dataclass
+class Artist:
+    genres: typing.List[str]
+    name: str
+    albums: typing.Optional[typing.List['Album']] = None
+
+@dataclass
+class Album:
+    genres: typing.List[str]
+    name: str
+    review: Review
+    artists: typing.Optional[typing.List[Artist]] = None

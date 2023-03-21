@@ -13,9 +13,12 @@ import os
 
 class ScraperPipeline:
     def __init__(self):
+        logging.error('msg')
         self.model = PitchForkReviewModel()
 
     def process_item(self, item, spider):
+        # TODO: uppercase or lowercase alphanumeric characters to simplify comparisons
+        # TODO: remove references to pitchfork in column names for reviews/authors and add source column to identify where the review is from
         self.model.load(item)
 
         if not self.model.album:
