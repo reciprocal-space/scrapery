@@ -13,28 +13,29 @@ import os
 
 class ScraperPipeline:
     def __init__(self):
-        logging.error('msg')
+        self.log = logging.getLogger(__name__)
         self.model = PitchForkReviewModel()
 
     def process_item(self, item, spider):
-        # TODO: uppercase or lowercase alphanumeric characters to simplify comparisons
-        # TODO: remove references to pitchfork in column names for reviews/authors and add source column to identify where the review is from
-        self.model.load(item)
+        try:
+            self.model.load(item)
 
-        if not self.model.album:
-            raise DropItem('Missing album in {item}')
-        if not self.model.genres:
-            raise DropItem('Missing genres in {item}')
-        if not self.model.link:
-            raise DropItem('Missing link in {item}')
-        if not self.model.author:
-            raise DropItem('Missing author in {item}')
-        if not self.model.reviewedAt:
-            raise DropItem('Missing reviewed_at in {item}')
+            if not self.model.album:
+                raise DropItem('Missing album in {item}')
+            if not self.model.genres:
+                raise DropItem('Missing genres in {item}')
+            if not self.model.link:
+                raise DropItem('Missing link in {item}')
+            if not self.model.author:
+                raise DropItem('Missing author in {item}')
+            if not self.model.reviewedAt:
+                raise DropItem('Missing reviewed_at in {item}')
 
-        # TODO: add idempotency check to see if we've saved review before
+            # TODO: add idempotency check to see if we've saved review before
 
-        self.saveItem()
+            self.saveItem()
+        except Exception as e:
+            self.log.error('Something went wrong in the pipeline: {e}')
 
     def saveItem(self):
         self.model.save()
