@@ -1,6 +1,8 @@
 # Scrapery
 Scrapery is Celery + Scrapy lovechild to scrape data from the web in a scalable, distributed manner. Currently it is directed at scraping metadata for album reviews from Pitchfork, but extending this to other domains should be as simple as defining new models and pipelines.
 
+There is also a GraphQL api to query the scraped data.
+
 
 ## Architecture
 
